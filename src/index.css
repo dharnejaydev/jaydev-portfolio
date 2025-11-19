@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-link {
+  position: relative;
+  z-index: 2;
+}
+:root {
+  --bg: #f8f9fb;    /* soft white base */
+  --text: #111;     /* deep black but not harsh */
+  --subtext: #555;  /* calm secondary text */
+  --border: #e5e7eb;
+  --accent: #ef4444; /* your red */
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
