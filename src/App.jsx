@@ -132,9 +132,7 @@ export default function App() {
   const navRef = useRef(null);
   const indicatorRef = useRef(null);
   const [toastVisible, setToastVisible] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
   const [lightboxItem, setLightboxItem] = useState(null);
-  const [contactSubmitting, setContactSubmitting] = useState(false);
 
   useEffect(() => {
     if (!navRef.current || !indicatorRef.current) return;
@@ -156,46 +154,9 @@ export default function App() {
     };
   }, []);
 
-  const showToast = (message = "Thank you. Your message has been submitted successfully.") => {
-    setToastMessage(message);
+  const showToast = () => {
     setToastVisible(true);
     setTimeout(() => setToastVisible(false), 3500);
-  };
-
-  const handleContactSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const formData = new FormData(form);
-
-    if (formData.get("_honey")) return;
-
-    setContactSubmitting(true);
-
-    try {
-      const response = await fetch("https://formsubmit.co/ajax/dharnejaydev1@gmail.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          message: formData.get("message"),
-          _subject: `Portfolio inquiry from ${formData.get("name")}`,
-          _replyto: formData.get("email"),
-          _template: "table",
-          _captcha: "false",
-        }),
-      });
-
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message || "Submission failed");
-
-      showToast("Message sent! I'll reply to your email soon.");
-      form.reset();
-    } catch {
-      window.alert("Unable to send your message right now. Please email dharnejaydev1@gmail.com directly.");
-    } finally {
-      setContactSubmitting(false);
-    }
   };
 
   const openCertLightbox = (cert) => {
@@ -301,10 +262,10 @@ export default function App() {
             <p className="about-kicker">My Journey</p>
             <div className="journey-timeline">
               {[
-                { year: "2024", label: "Frontend Internship" },
-                { year: "2025", label: "BSc Computer Science " },
-                { year: "2025", label: "Digital Marketing Internship" },
-                { year: "2026", label: "GA4/GTM Projects Live" },
+                { year: "2022", label: "BSc Computer Science (Started)" },
+                { year: "2023", label: "Frontend Internship" },
+                { year: "2024", label: "Digital Marketing Internship" },
+                { year: "2025", label: "GA4/GTM Projects Live" },
               ].map((item) => (
                 <div key={`${item.year}-${item.label}`} className="journey-item">
                   <span className="journey-year">{item.year}</span>
@@ -506,15 +467,18 @@ export default function App() {
         <motion.section id="contact" className="section-shell pb-24" variants={fadeIn} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
           <SectionIntro overline="Contact" title="Open to Marketing Roles and Internships" description="Looking for a performance marketing fresher? Let's connect." />
           <div className="grid gap-8 md:grid-cols-2">
-            <form name="contact" onSubmit={handleContactSubmit} className="card-panel contact-form-panel grid gap-4">
+            <form name="contact" method="POST" data-netlify="true" onSubmit={(event) => {
+              event.preventDefault();
+              const form = event.target;
+              const formData = new FormData(form);
+              fetch("/", { method: "POST", body: formData }).then(() => { showToast(); form.reset(); }).catch(() => window.alert("Unable to submit form right now. Please try again."));
+            }} className="card-panel contact-form-panel grid gap-4">
               <p className="text-sm font-medium text-slate-500">Project Inquiry Form</p>
-              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              <input type="hidden" name="form-name" value="contact" />
               <input name="name" type="text" placeholder="Your Name" className="input-base" required />
               <input name="email" type="email" placeholder="Your Email" className="input-base" required />
               <textarea name="message" rows="5" placeholder="Tell me about your project" className="input-base resize-none" required />
-              <button type="submit" className="btn-primary mt-2" disabled={contactSubmitting}>
-                {contactSubmitting ? "Sending..." : "Send Message"}
-              </button>
+              <button type="submit" className="btn-primary mt-2">Send Message</button>
             </form>
 
             <div className="card-panel contact-info-panel">
@@ -544,7 +508,7 @@ export default function App() {
 
       <footer className="border-t border-slate-200 py-7 text-center text-sm text-slate-500">Copyright {new Date().getFullYear()} Jaydev Dharne. All rights reserved.</footer>
       <a href="/JaydevDharne_Resume.pdf" download="JaydevDharne_Resume.pdf" className="sticky-resume-btn btn-primary">Download Resume</a>
-      <Toast show={toastVisible} message={toastMessage} />
+      <Toast show={toastVisible} message="Thank you. Your message has been submitted successfully." />
     </div>
   );
 }
