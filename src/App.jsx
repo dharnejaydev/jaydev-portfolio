@@ -263,7 +263,7 @@ export default function App() {
             <div className="journey-timeline">
               {[
                 { year: "2024", label: "Frontend Internship" },
-                { year: "2025", label: "BSc Computer Science (Started)" },
+                { year: "2025", label: "BSc Computer Science " },
                 { year: "2025", label: "Digital Marketing Internship" },
                 { year: "2026", label: "GA4/GTM Projects Live" },
               ].map((item) => (
