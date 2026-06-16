@@ -262,10 +262,10 @@ export default function App() {
             <p className="about-kicker">My Journey</p>
             <div className="journey-timeline">
               {[
-                { year: "2022", label: "BSc Computer Science (Started)" },
-                { year: "2023", label: "Frontend Internship" },
-                { year: "2024", label: "Digital Marketing Internship" },
-                { year: "2025", label: "GA4/GTM Projects Live" },
+                { year: "2024", label: "Frontend Internship" },
+                { year: "2025", label: "BSc Computer Science (Started)" },
+                { year: "2025", label: "Digital Marketing Internship" },
+                { year: "2026", label: "GA4/GTM Projects Live" },
               ].map((item) => (
                 <div key={`${item.year}-${item.label}`} className="journey-item">
                   <span className="journey-year">{item.year}</span>
