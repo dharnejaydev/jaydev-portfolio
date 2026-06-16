@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Ads Case Study — Jaydev Dharne</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8f9fc;
+    color: #1a1a2e;
+    line-height: 1.7;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e8eaf0;
+    padding: 0 2rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-brand { font-size: 0.85rem; font-weight: 600; color: #1a1a2e; letter-spacing: 0.02em; }
+  .nav-back { font-size: 0.82rem; color: #6b7280; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .nav-back:hover { color: #1a1a2e; }
+
+  /* HERO */
+  .hero {
+    background: #0f4c81;
+    color: white;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #93c5fd;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    max-width: 750px;
+    margin: 0 auto 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .hero-sub {
+    color: #bfdbfe;
+    font-size: 1rem;
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: #60a5fa; margin-bottom: 2px; }
+  .hero-meta-item .value { font-size: 0.9rem; color: #e0f2fe; font-weight: 500; }
+
+  /* RESULTS BANNER */
+  .results-banner {
+    background: white;
+    border-bottom: 1px solid #e8eaf0;
+    padding: 2.5rem 2rem;
+  }
+  .results-inner { max-width: 960px; margin: 0 auto; }
+  .results-banner h2 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.2rem;
+  }
+  .metric-card {
+    background: #f8f9fc;
+    border: 1px solid #e8eaf0;
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .metric-card .metric-value {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #16a34a;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-card .metric-value.up { color: #0f4c81; }
+  .metric-card .metric-value.red { color: #dc2626; }
+  .metric-card .metric-label { font-size: 0.73rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.06em; }
+  .metric-card .metric-sub { font-size: 0.7rem; color: #9ca3af; margin-top: 4px; }
+
+  /* CONTENT */
+  .content { max-width: 820px; margin: 0 auto; padding: 3rem 2rem; }
+  .section { margin-bottom: 3.5rem; }
+  .section-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #0f4c81;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .section h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .section p { color: #4b5563; font-size: 0.95rem; margin-bottom: 0.8rem; }
+
+  /* ROLE BOX */
+  .role-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid #0f4c81;
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin: 1rem 0;
+  }
+  .role-box p { color: #1e3a5f; margin: 0; font-size: 0.9rem; }
+  .role-box strong { color: #0f4c81; }
+
+  /* PROBLEM BOX */
+  .problem-box {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-left: 4px solid #ea580c;
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin: 1rem 0;
+  }
+  .problem-box p { color: #7c2d12; margin: 0; font-size: 0.9rem; }
+
+  /* SCREENSHOT BOX */
+  .screenshot-box {
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e8eaf0;
+  }
+  .screenshot-box img { width: 100%; display: block; }
+  .screenshot-caption {
+    padding: 0.6rem 1rem;
+    background: #f8f9fc;
+    font-size: 0.75rem;
+    color: #6b7280;
+    border-top: 1px solid #e8eaf0;
+  }
+
+  /* COMPARISON TABLE */
+  .comparison {
+    background: white;
+    border: 1px solid #e8eaf0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+  .comparison-header {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr;
+    background: #0f4c81;
+    color: white;
+    padding: 0.75rem 1.2rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .comparison-row {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr;
+    padding: 0.85rem 1.2rem;
+    border-bottom: 1px solid #f1f3f9;
+    font-size: 0.88rem;
+    align-items: center;
+  }
+  .comparison-row:last-child { border-bottom: none; }
+  .comparison-row:nth-child(even) { background: #fafbff; }
+  .comparison-row .metric-name { color: #374151; font-weight: 500; }
+  .comparison-row .before { color: #6b7280; }
+  .comparison-row .after { color: #16a34a; font-weight: 600; }
+  .comparison-row .after.neutral { color: #0f4c81; font-weight: 600; }
+
+  /* HIGHLIGHT STAT */
+  .highlight-stat {
+    background: #0f4c81;
+    color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .highlight-stat .big { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .highlight-stat .desc { font-size: 0.9rem; color: #bfdbfe; margin-top: 8px; }
+
+  /* STEPS */
+  .steps { list-style: none; }
+  .step { display: flex; gap: 1.2rem; margin-bottom: 1.8rem; align-items: flex-start; }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #0f4c81;
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content h3 { font-size: 0.95rem; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+  .step-content p { font-size: 0.88rem; color: #4b5563; margin: 0; }
+
+  /* WHAT I DID vs WHAT TEAM DID */
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .split-card {
+    background: white;
+    border: 1px solid #e8eaf0;
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+  .split-card h3 { font-size: 0.85rem; font-weight: 600; color: #1a1a2e; margin-bottom: 0.8rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e8eaf0; }
+  .split-card ul { list-style: none; }
+  .split-card ul li { font-size: 0.84rem; color: #4b5563; padding: 4px 0; display: flex; gap: 8px; }
+  .split-card ul li::before { content: "→"; color: #0f4c81; font-weight: 700; flex-shrink: 0; }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .tag { background: #0f4c81; color: white; border-radius: 100px; padding: 4px 12px; font-size: 0.75rem; font-weight: 500; }
+
+  /* LEARNINGS */
+  .learning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .learning-card {
+    background: white;
+    border: 1px solid #e8eaf0;
+    border-radius: 10px;
+    padding: 1.2rem;
+  }
+  .learning-card .icon { font-size: 1.2rem; margin-bottom: 8px; }
+  .learning-card h3 { font-size: 0.88rem; font-weight: 600; color: #1a1a2e; margin-bottom: 4px; }
+  .learning-card p { font-size: 0.82rem; color: #6b7280; margin: 0; }
+
+  /* INTERVIEW NOTE */
+  .interview-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #16a34a;
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin: 1rem 0;
+  }
+  .interview-box h3 { font-size: 0.82rem; font-weight: 600; color: #15803d; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+  .interview-box p { color: #166534; font-size: 0.88rem; margin: 0; font-style: italic; }
+
+  .divider { border: none; border-top: 1px solid #e8eaf0; margin: 0; }
+
+  footer {
+    background: #0f4c81;
+    color: #bfdbfe;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.82rem;
+  }
+  footer a { color: #93c5fd; }
+  footer strong { color: white; }
+
+  @media (max-width: 600px) {
+    .comparison-header, .comparison-row { grid-template-columns: 1.4fr 0.9fr 0.9fr; font-size: 0.78rem; padding: 0.65rem 0.8rem; }
+    .split-grid { grid-template-columns: 1fr; }
+    .hero-meta { gap: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Jaydev Dharne — Portfolio</span>
+  <a href="/" class="nav-back">← Back to portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">📈 Case Study · Google Ads</div>
+  <h1>Google Ads Search Campaign — From Zero Conversions to 72 Conversions</h1>
+  <p class="hero-sub">How a stagnant search campaign with 0 conversions was restructured to achieve a 2.53 ROAS and 1,256 clicks through full optimization.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <div class="label">Role</div>
+      <div class="value">Digital Marketing Intern</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="label">Platform</div>
+      <div class="value">Google Ads</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="label">Campaign Type</div>
+      <div class="value">Search — Maximise Clicks</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="label">Campaign</div>
+      <div class="value">Website traffic-Search-CNDT</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS BANNER -->
+<section class="results-banner">
+  <div class="results-inner">
+    <h2>Results after optimization</h2>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value up">0 → 72</div>
+        <div class="metric-label">Conversions</div>
+        <div class="metric-sub">From nothing to 72 real conversions</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">+17,529%</div>
+        <div class="metric-label">Impressions</div>
+        <div class="metric-sub">31 → 5,468</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">+4,738%</div>
+        <div class="metric-label">Clicks</div>
+        <div class="metric-sub">26 → 1,256</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value red">−35%</div>
+        <div class="metric-label">Avg. CPC</div>
+        <div class="metric-sub">₹9.56 → ₹6.21</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">2.53</div>
+        <div class="metric-label">ROAS</div>
+        <div class="metric-sub">Was 0.05 before</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">5.73%</div>
+        <div class="metric-label">Conv. Rate</div>
+        <div class="metric-sub">Was 0% before</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- BACKGROUND -->
+  <div class="section">
+    <div class="section-label">01 — Background</div>
+    <h2>The Situation</h2>
+    <p>During my internship at DigitizeBrand Hub, a Google Ads Search campaign called "Website traffic-Search-CNDT-24-11-2025" was live but essentially dead — 31 impressions, 26 clicks, zero conversions, and a ROAS of just 0.05. The campaign was spending budget but generating no measurable business results.</p>
+    <p>My task was to assist in diagnosing why the campaign was underperforming and support the team in restructuring it for real results.</p>
+
+    <div class="problem-box">
+      <p><strong>The core problem:</strong> The campaign had extremely low impression share (only 31 impressions total), no conversion tracking properly set up, and likely poor keyword targeting and ad relevance — meaning Google wasn't showing the ads to enough of the right people, and even when it did, nothing was being measured.</p>
+    </div>
+
+    <div class="role-box">
+      <p><strong>My role as intern:</strong> I assisted in campaign auditing, keyword analysis, ad copy review, conversion tracking setup, and post-optimization monitoring. I worked under the team lead's supervision and learned hands-on how each change impacted performance in Google Ads.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BEFORE/AFTER DATA -->
+  <div class="section">
+    <div class="section-label">02 — Data: Before vs After</div>
+    <h2>Campaign Performance Comparison</h2>
+
+    <div class="screenshot-box">
+      <img src="/google-ads-screenshot.png" alt="Google Ads dashboard showing before and after optimization results" />
+      <div class="screenshot-caption">Google Ads Manager — Before and After optimization. Campaign: Website traffic-Search-CNDT-24-11-2025. Conversions grew from 0 to 72. ROAS improved from 0.05 to 2.53.</div>
+    </div>
+
+    <div class="comparison">
+      <div class="comparison-header">
+        <span>Metric</span>
+        <span>Before</span>
+        <span>After</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Impressions</span>
+        <span class="before">31</span>
+        <span class="after">5,468 (+17,529%)</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Clicks</span>
+        <span class="before">26</span>
+        <span class="after">1,256 (+4,738%)</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">CTR</span>
+        <span class="before">83.87%</span>
+        <span class="after neutral">22.95%</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Avg. CPC</span>
+        <span class="before">₹9.56</span>
+        <span class="after">₹6.21 (−35%)</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Total Cost</span>
+        <span class="before">₹248.62</span>
+        <span class="after neutral">₹7,800.00</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Conversions</span>
+        <span class="before">0</span>
+        <span class="after">72</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Conversion Rate</span>
+        <span class="before">0.00%</span>
+        <span class="after">5.73%</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Cost / Conversion</span>
+        <span class="before">—</span>
+        <span class="after neutral">₹108.33</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">Conversion Value</span>
+        <span class="before">₹11.40</span>
+        <span class="after">₹19,728.00</span>
+      </div>
+      <div class="comparison-row">
+        <span class="metric-name">ROAS</span>
+        <span class="before">0.05</span>
+        <span class="after">2.53</span>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem; color:#6b7280;">Note: CTR dropped from 83.87% to 22.95% — this is expected and healthy. The original high CTR came from barely any impressions (only 31). At scale with 5,468 impressions, a 22.95% CTR is actually very strong for a search campaign.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- HIGHLIGHT -->
+  <div class="section">
+    <div class="highlight-stat">
+      <div class="big">₹19,728</div>
+      <div class="desc">Conversion value generated from ₹7,800 spend — a 2.53x return on ad spend</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STRATEGY -->
+  <div class="section">
+    <div class="section-label">03 — What We Did</div>
+    <h2>Optimization Strategy — Step by Step</h2>
+    <p>The campaign needed work across four areas: impression volume, keyword targeting, conversion tracking, and landing page alignment.</p>
+
+    <ul class="steps">
+      <li class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Campaign Audit — Why Were Impressions So Low?</h3>
+          <p>The first step was understanding why the campaign only got 31 impressions. We checked: keyword match types (likely too restrictive — exact match on low-volume terms), Quality Score, Ad Rank, and budget limits. Low impression share usually means Google isn't bidding the ads into the auction — either due to budget, keyword issues, or poor ad relevance.</p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Keyword Restructuring</h3>
+          <p>Reviewed keyword list and identified overly narrow or irrelevant terms that weren't triggering enough searches. Expanded to include broader and phrase match keywords with higher search volume. Added negative keywords to filter out irrelevant traffic and protect budget from wasted clicks.</p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Conversion Tracking Setup and Validation</h3>
+          <p>The campaign was recording 0 conversions partly because conversion tracking wasn't properly configured — no conversion actions were firing. We set up proper conversion tracking via Google Tag Manager, defined the conversion action (form submission / CTA click), and validated it was firing using GTM Preview and Google Ads conversion debugger.</p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Ad Copy Improvement</h3>
+          <p>Reviewed existing ad headlines and descriptions for relevance to keywords and landing page content. Rewrote headlines to include target keywords, a clear value proposition, and a strong CTA. Improved ad relevance directly improves Quality Score, which lowers CPC and raises Ad Rank — leading to more impressions at lower cost.</p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Budget Scaling After Validation</h3>
+          <p>Once conversions started coming in and the campaign showed positive signals, budget was scaled up. This allowed Google's algorithm to gather more data and optimize delivery more efficiently — reflected in the CPC dropping from ₹9.56 to ₹6.21 even as volume exploded.</p>
+        </div>
+      </li>
+      <li class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h3>Ongoing Monitoring and Reporting</h3>
+          <p>After launch, I monitored daily performance in Google Ads — watching CTR, CPC, conversion rate, and ROAS trends. Flagged anomalies to the team lead and helped document results in Excel for reporting purposes.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- MY CONTRIBUTION -->
+  <div class="section">
+    <div class="section-label">04 — My Contribution</div>
+    <h2>What I Did vs What the Team Did</h2>
+    <div class="split-grid">
+      <div class="split-card">
+        <h3>My Tasks (Intern)</h3>
+        <ul>
+          <li>Audited the campaign and identified low impression share as the root issue</li>
+          <li>Researched keyword opportunities and drafted expanded keyword list</li>
+          <li>Assisted in setting up conversion tracking via GTM</li>
+          <li>Validated conversion firing using GTM Preview</li>
+          <li>Rewrote ad copy drafts for team lead review</li>
+          <li>Monitored daily metrics and flagged performance changes</li>
+          <li>Built Excel performance report with before/after comparison</li>
+        </ul>
+      </div>
+      <div class="split-card">
+        <h3>Team Lead Oversight</h3>
+        <ul>
+          <li>Final approval on all keyword and bid changes</li>
+          <li>Account-level access and budget decisions</li>
+          <li>Final review of ad copy before going live</li>
+          <li>Strategic direction on campaign objective and structure</li>
+          <li>Client communication and reporting sign-off</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CTR NOTE -->
+  <div class="section">
+    <div class="section-label">05 — Important Note on CTR</div>
+    <h2>Why CTR Dropped and Why That's a Good Sign</h2>
+    <p>At first glance, the CTR dropping from 83.87% to 22.95% looks like a problem. It isn't.</p>
+    <p>The original 83.87% CTR came from only 31 impressions — a tiny, likely accidental sample where almost everyone who saw the ad happened to click. This is statistically meaningless at such small volume.</p>
+    <p>After optimization, with 5,468 impressions, a 22.95% CTR is genuinely strong — industry benchmarks for search campaigns typically sit between 6–15%. Our 22.95% means the keywords and ad copy are well aligned with user intent.</p>
+    <div class="problem-box" style="background:#f0fdf4; border-color:#bbf7d0; border-left-color:#16a34a;">
+      <p style="color:#166534;"><strong>Key insight:</strong> High CTR on low impressions = noise. High CTR on high impressions = signal. Always read metrics in context of scale.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- LEARNINGS -->
+  <div class="section">
+    <div class="section-label">06 — Key Learnings</div>
+    <h2>What I Learned</h2>
+    <div class="learning-grid">
+      <div class="learning-card">
+        <div class="icon">🔍</div>
+        <h3>Audit before acting</h3>
+        <p>The instinct was to fix the ads. The real issue was impression share — a structural problem, not a creative one.</p>
+      </div>
+      <div class="learning-card">
+        <div class="icon">🎯</div>
+        <h3>Conversion tracking is non-negotiable</h3>
+        <p>Without proper conversion tracking, you can't optimize. The algorithm is blind without conversion signals.</p>
+      </div>
+      <div class="learning-card">
+        <div class="icon">📊</div>
+        <h3>Quality Score drives efficiency</h3>
+        <p>Better ad relevance → higher Quality Score → lower CPC. CPC dropped 35% not by bidding less, but by improving relevance.</p>
+      </div>
+      <div class="learning-card">
+        <div class="icon">⚖️</div>
+        <h3>Read metrics in context</h3>
+        <p>CTR "dropping" from 83% to 22% was actually great news. Small sample sizes produce misleading numbers.</p>
+      </div>
+      <div class="learning-card">
+        <div class="icon">📈</div>
+        <h3>Scale what works, not what's comfortable</h3>
+        <p>Budget scaling was held back out of caution. Once conversions validated performance, scaling delivered the ROI.</p>
+      </div>
+      <div class="learning-card">
+        <div class="icon">🔗</div>
+        <h3>GTM + Google Ads = complete picture</h3>
+        <p>Using GTM for conversion tracking gave precise event-level control that the native Google Ads tag alone wouldn't provide.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- INTERVIEW ANSWER -->
+  <div class="section">
+    <div class="section-label">07 — For Interviews</div>
+    <h2>How to Talk About This</h2>
+    <div class="interview-box">
+      <h3>If asked: "Have you run Google Ads campaigns?"</h3>
+      <p>"Yes. During my internship I worked on a live Google Search campaign that had near-zero impressions and zero conversions. I helped diagnose the issue — low impression share due to keyword and relevance problems — restructured the keyword list, set up proper conversion tracking via GTM, and rewrote ad copy. After optimization, the campaign scaled from 31 impressions to 5,468 and achieved 72 conversions with a 2.53 ROAS. CPC also dropped 35% due to improved Quality Score."</p>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section">
+    <div class="section-label">08 — Tools Used</div>
+    <h2>Tech and Platform Stack</h2>
+    <div class="tags">
+      <span class="tag">Google Ads</span>
+      <span class="tag">Google Tag Manager</span>
+      <span class="tag">GA4</span>
+      <span class="tag">Google Search Console</span>
+      <span class="tag">Keyword Planner</span>
+      <span class="tag">GTM Preview</span>
+      <span class="tag">Excel Reporting</span>
+      <span class="tag">Conversion Debugger</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Case study by <strong>Jaydev Dharne</strong> · Performance Marketing Fresher · Pune, India · <a href="mailto:dharnejaydev1@gmail.com">dharnejaydev1@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
